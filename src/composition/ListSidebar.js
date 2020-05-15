@@ -12,7 +12,7 @@ export default class ListSidebar extends Component {
     render() {
         const { folders, notes } = this.context
         return(
-            <div className='list-sidebar sidebar'>
+            <section className='list-sidebar sidebar'>
                 <ul className='folders-list'>
                     {folders.map(folder => 
                         <li key={folder.id}>
@@ -25,7 +25,7 @@ export default class ListSidebar extends Component {
                 <Link to='/add-folder' className='add-folder-link'>
                     Add Folder
                 </Link>
-            </div>
+            </section>
         );
     }
 }

@@ -26,7 +26,7 @@ export default class NotePgSidebar extends Component {
         const note = this.getNote(notes, id)
         const folder = this.getFolder(folders, note.folderId)
         return (
-            <div className='note-sidebar sidebar'>
+            <section className='note-sidebar sidebar'>
                 <button
                     type='button'
                     value='Back'
@@ -34,7 +34,7 @@ export default class NotePgSidebar extends Component {
                     onClick={() => this.props.history.goBack()}
                 />
                 <h3>{folder.name}</h3>
-            </div>
+            </section>
         );
     }
 }
