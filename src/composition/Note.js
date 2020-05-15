@@ -9,7 +9,7 @@ export default class Note extends Component {
     static contextType = FilesContext;
 
     handleDeleteNote = (e) => {
-        e.preventDefault;
+        e.preventDefault();
         const id = this.props.id
         const url = `localhost:3000/notes/${id}`
         const options = {

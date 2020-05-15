@@ -23,7 +23,7 @@ export default class NotePgMain extends Component {
         const { noteId } = this.props.match.params
         const note = this.getNote(notes, noteId)
         return (
-            <section className='note-page-main main'>
+            <section className='note-page-main'>
                 <Note
                     id={noteId}
                     title={note.name}

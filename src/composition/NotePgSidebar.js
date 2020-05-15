@@ -26,7 +26,7 @@ export default class NotePgSidebar extends Component {
         const note = this.getNote(notes, id)
         const folder = this.getFolder(folders, note.folderId)
         return (
-            <section className='note-sidebar sidebar'>
+            <section className='note-sidebar'>
                 <button
                     type='button'
                     value='Back'

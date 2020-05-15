@@ -6,13 +6,14 @@ export default class ListSidebar extends Component {
     static contextType = FilesContext;
 
     getNumNotes = (notes, folderId) => {
-        notes.filter(note => note.folderId === folderId).length
+        let noteArray = notes.filter(note => note.folderId === folderId)
+        return noteArray.length
     }
 
     render() {
         const { folders, notes } = this.context
         return(
-            <section className='list-sidebar sidebar'>
+            <section className='list-sidebar'>
                 <ul className='folders-list'>
                     {folders.map(folder => 
                         <li key={folder.id}>

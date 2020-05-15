@@ -23,7 +23,7 @@ export default class ListMain extends Component {
         const { notes } = this.context
         const folderNotes = this.matchFolderNotes(notes, folderId)
         return(
-            <section className='list-main main'>
+            <section className='list-main'>
                 <ul className='notes-list'>
                     {folderNotes.map(note => 
                         <li key={note.id}>
