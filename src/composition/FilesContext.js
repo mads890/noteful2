@@ -1,7 +1,11 @@
+import React from 'react';
+
 const FilesContext = {
     folders: [],
     notes: [],
-    onDeleteNote: () => {}
+    addFolder: () => {},
+    addNote: () => {},
+    deleteNote: () => {},
 }
 
 export default FilesContext;
