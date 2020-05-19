@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Note from './Note';
 import FilesContext from './FilesContext';
+import PropTypes from 'prop-types';
 
 export default class NotePgMain extends Component {
     static defaultProps = {
@@ -10,7 +11,7 @@ export default class NotePgMain extends Component {
     }
     static contextType = FilesContext;
 
-    backToList = (noteId) => {
+    backToList = () => {
         this.props.history.push('/')
     }
 
@@ -36,4 +37,8 @@ export default class NotePgMain extends Component {
             </section>
         );
     }
+}
+
+NotePgMain.propTypes = {
+    match: PropTypes.object.isRequired,
 }

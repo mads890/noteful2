@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import FilesContext from './FilesContext';
+import PropTypes from 'prop-types';
 
 export default class Note extends Component {
     static defaultProps = {
@@ -11,7 +12,7 @@ export default class Note extends Component {
     handleDeleteNote = (e) => {
         e.preventDefault();
         const id = this.props.id
-        const url = `localhost:3000/notes/${id}`
+        const url = `http://localhost:9090/notes/${id}`
         const options = {
             method: 'DELETE',
             headers: {
@@ -29,7 +30,7 @@ export default class Note extends Component {
         })
         .then(() => {
             this.context.deleteNote(id)
-            this.props.onDeleteNote(id)
+            this.props.onDeleteNote()
         })
         .catch(err => {
             console.error({ err })
@@ -58,4 +59,11 @@ export default class Note extends Component {
             </div>
         );
     }
+}
+
+Note.propTypes = {
+    onDeleteNote: PropTypes.func.isRequired,
+    title: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
+    date: PropTypes.string.isRequired,
 }

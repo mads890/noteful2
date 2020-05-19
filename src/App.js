@@ -5,8 +5,9 @@ import ListSidebar from './composition/ListSidebar';
 import NotePgSidebar from './composition/NotePgSidebar';
 import NotePgMain from './composition/NotePgMain';
 import FilesContext from './composition/FilesContext';
+import ErrorBoundary from './composition/ErrorBoundary';
 
-export default class App extends Component {
+class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -17,16 +18,14 @@ export default class App extends Component {
 
   componentDidMount() {
     Promise.all([
-      fetch('localhost:3000/notes'),
-      fetch('localhost:3000/folders')
+      fetch('http://localhost:9090/notes'),
+      fetch('http://localhost:9090/folders')
     ])
     .then(([notesResponse, foldersResponse]) => {
       if (!notesResponse.ok) {
-        // throw new Error ?
         return notesResponse.json().then(err => Promise.reject(err));
       }
       if (!foldersResponse.ok) {
-        // throw new Error ?
         return foldersResponse.json().then(err => Promise.reject(err));
       }
       return Promise.all([notesResponse.json(), foldersResponse.json()]);
@@ -50,7 +49,8 @@ export default class App extends Component {
   renderMainRoutes() {
     return (
       <>
-  
+        <Route exact path='/' component={ListMain} />
+        <Route path='/folder/:folderId' component={ListMain} />
         <Route path='/note/:noteId' component={NotePgMain} />
       </>
     )
@@ -59,7 +59,8 @@ export default class App extends Component {
   renderSidebarRoutes() {
     return (
       <>
-
+        <Route exact path='/' component={ListSidebar} />
+        <Route path='/folder/:folderId' component={ListSidebar} />
         <Route path='/note/:noteId' component={NotePgSidebar} />
         <Route path='/add-folder' component={NotePgSidebar} />
         <Route path='/add-note' component={NotePgSidebar} />
@@ -81,10 +82,14 @@ export default class App extends Component {
               <Link to='/'>Noteful</Link>
             </h1>
           </header>
-          <nav className='sidebar'>{this.renderSidebarRoutes()}</nav>
-          <main className='main'>{this.renderMainRoutes()}</main>
+          <ErrorBoundary>
+            <nav className='sidebar'>{this.renderSidebarRoutes()}</nav>
+            <main className='main'>{this.renderMainRoutes()}</main>
+          </ErrorBoundary>
         </div>
       </FilesContext.Provider>
     );
   }
 }
+
+export default App;

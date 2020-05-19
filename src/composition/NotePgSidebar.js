@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import FilesContext from './FilesContext';
+import PropTypes from 'prop-types';
 
 export default class NotePgSidebar extends Component {
     static defaultProps = {
@@ -37,4 +38,9 @@ export default class NotePgSidebar extends Component {
             </section>
         );
     }
+}
+
+NotePgSidebar.propTypes = {
+    history: PropTypes.object.isRequired,
+    match: PropTypes.object.isRequired,
 }
