@@ -84,6 +84,8 @@ class App extends Component {
           </header>
           <ErrorBoundary>
             <nav className='sidebar'>{this.renderSidebarRoutes()}</nav>
+          </ErrorBoundary>
+          <ErrorBoundary>
             <main className='main'>{this.renderMainRoutes()}</main>
           </ErrorBoundary>
         </div>
