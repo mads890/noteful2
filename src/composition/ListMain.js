@@ -14,11 +14,10 @@ export default class ListMain extends Component {
     static contextType = FilesContext;
 
     matchFolderNotes = (notes, folderId) => {
-        if (folderId == '') {
+        if (!folderId) {
             return notes
         }
         else {
-            document.getElementById(folderId).toggleClass('selected')
             return notes.filter(note => note.folderId === folderId)
         }
     }
@@ -42,7 +41,7 @@ export default class ListMain extends Component {
                     )}
                 </ul>
                 </ErrorBoundary>
-                <Link to='/add-note' className='add-note-link'>
+                <Link to='/add-note' className='add-link'>
                     Add Note
                 </Link>
             </section>

@@ -18,7 +18,7 @@ export default class ListSidebar extends Component {
                 <ErrorBoundary>
                 <ul className='folders-list'>
                     {folders.map(folder => 
-                        <li key={folder.id} id={folder.id}>
+                        <li key={folder.id} id={folder.id} className='folders-list-item'>
                             <Link to={`/folder/${folder.id}`} className='folder-link'>
                                 <p><span>{this.getNumNotes(notes, folder.id)}</span> {folder.name}</p>
                             </Link>
@@ -26,7 +26,7 @@ export default class ListSidebar extends Component {
                     )}
                 </ul>
                 </ErrorBoundary>
-                <Link to='/add-folder' className='add-folder-link'>
+                <Link to='/add-folder' className='add-link'>
                     Add Folder
                 </Link>
             </section>

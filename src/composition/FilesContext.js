@@ -1,11 +1,9 @@
 import React from 'react';
 
-const FilesContext = {
+export default React.createContext({ 
     folders: [],
     notes: [],
     addFolder: () => {},
     addNote: () => {},
     deleteNote: () => {},
-}
-
-export default FilesContext;
+})

@@ -40,7 +40,7 @@ export default class Note extends Component {
     render() {
         const { title, id, date } = this.props
         return (
-            <div className='note-list-item'>
+            <div className='notes-list-item'>
                 <h2>
                     <Link to={`/note/${id}`}>
                         {title}

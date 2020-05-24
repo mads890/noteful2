@@ -24,8 +24,11 @@ export default class NotePgSidebar extends Component {
     render() {
         const { notes, folders } = this.context
         const { id } = this.props.match.params
+        console.log(id)
         const note = this.getNote(notes, id)
+        console.log(note)
         const folder = this.getFolder(folders, note.folderId)
+        console.log(folder)
         return (
             <section className='note-sidebar'>
                 <button

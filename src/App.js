@@ -6,13 +6,15 @@ import NotePgSidebar from './composition/NotePgSidebar';
 import NotePgMain from './composition/NotePgMain';
 import FilesContext from './composition/FilesContext';
 import ErrorBoundary from './composition/ErrorBoundary';
+import AddFolder from './composition/AddFolder';
+import AddNote from './composition/AddNote';
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       notes: [],
-      folders: []
+      folders: [],
     }
   }
 
@@ -32,7 +34,7 @@ class App extends Component {
     })
     .then(([notes, folders]) => {
       this.setState({
-        notes, folders
+        notes, folders,
       });
     })
     .catch(err => {
@@ -40,10 +42,28 @@ class App extends Component {
     })
   }
 
+  
+
   handleDeleteNote = (id) => {
     this.setState({
       notes: this.state.notes.filter(note => note.id !== id)
     });
+  }
+
+  handleAddFolder = (folder) => {
+    let currentFolders = this.state.folders
+    let newFolder = folder;
+    this.setState({
+      folders: [...currentFolders, newFolder]
+    })
+  }
+
+  handleAddNote = (note) => {
+    let currentNotes = this.state.notes
+    let newNote = note;
+    this.setState({
+      notes: [...currentNotes, newNote]
+    })
   }
 
   renderMainRoutes() {
@@ -52,6 +72,8 @@ class App extends Component {
         <Route exact path='/' component={ListMain} />
         <Route path='/folder/:folderId' component={ListMain} />
         <Route path='/note/:noteId' component={NotePgMain} />
+        <Route path='/add-folder' component={AddFolder} />
+        <Route path='/add-note' component={AddNote} />
       </>
     )
   }
@@ -72,7 +94,9 @@ class App extends Component {
     const contextValues = {
       notes: this.state.notes,
       folders: this.state.folders,
-      deleteNote: this.handleDeleteNote
+      deleteNote: this.handleDeleteNote,
+      addFolder: this.handleAddFolder,
+      addNote: this.handleAddNote,
     };
     return (
       <FilesContext.Provider value={contextValues}>

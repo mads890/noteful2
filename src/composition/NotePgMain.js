@@ -15,8 +15,8 @@ export default class NotePgMain extends Component {
         this.props.history.push('/')
     }
 
-    getNote = (noteList, id) => {
-        noteList.find(note => note.id === id)
+    getNote = (notes, id) => {
+        notes.find(note => note.id === id)
     }
 
     render() {

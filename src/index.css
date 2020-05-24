@@ -11,3 +11,57 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.App {
+  text-align: center;
+}
+
+.App-header {
+  text-align: center;
+  height: 100px;
+  padding-top: 40px;
+}
+
+.sidebar {
+  width: 30vw;
+  display: inline-block;
+  vertical-align: top;
+  text-align: center;
+}
+
+.main {
+  width: 60vw;
+  display: inline-block;
+}
+
+.notes-list, .folders-list {
+  list-style: none;
+}
+
+.folders-list-item {
+  padding: 20px;
+  border: 1px solid black;
+  text-align: center;
+}
+
+.notes-list-item {
+  padding: 10px;
+  border: 1px solid black;
+  margin-bottom: 10px;
+}
+
+.selected {
+  background-color: aqua;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+.add-link {
+  background-color: greenyellow;
+  padding: 10px;
+  border-radius: 15px;
+  border: 1px solid darkgreen;
+}
