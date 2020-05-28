@@ -14,32 +14,37 @@ export default class NotePgSidebar extends Component {
     static contextType = FilesContext;
 
     getNote = (noteList, id) => {
-        noteList.find(note => note.id === id)
+        const note = noteList.find(note => note.id === id)
+        return note;
     }
 
     getFolder = (folderList, id) => {
-        folderList.find(folder => folder.id === id)
+        const folder = folderList.find(folder => folder.id === id)
+        return folder;
     }
 
     render() {
         const { notes, folders } = this.context
-        const { id } = this.props.match.params
-        console.log(id)
-        const note = this.getNote(notes, id)
-        console.log(note)
-        const folder = this.getFolder(folders, note.folderId)
-        console.log(folder)
-        return (
-            <section className='note-sidebar'>
-                <button
-                    type='button'
-                    value='Back'
-                    className='back-button'
-                    onClick={() => this.props.history.goBack()}
-                />
-                <h3>{folder.name}</h3>
-            </section>
-        );
+        const id = this.props.match.params
+        if (notes.length > 0) {
+            const note = this.getNote(notes, id.noteId)
+            const folder = this.getFolder(folders, note.folderId)
+            return (
+                <section className='note-sidebar'>
+                    <div className='folder-title'>
+                        <h3>{folder.name}</h3>
+                    </div>
+                    <button
+                        type='button'
+                        className='back-button'
+                        onClick={() => this.props.history.goBack()}
+                    >
+                        Back
+                    </button>
+                </section>
+            );
+        }
+        else return <div></div>
     }
 }
 

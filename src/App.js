@@ -8,6 +8,7 @@ import FilesContext from './composition/FilesContext';
 import ErrorBoundary from './composition/ErrorBoundary';
 import AddFolder from './composition/AddFolder';
 import AddNote from './composition/AddNote';
+import AddFolderSidebar from './composition/AddFolderSidebar'
 
 class App extends Component {
   constructor(props) {
@@ -42,17 +43,15 @@ class App extends Component {
     })
   }
 
-  
-
   handleDeleteNote = (id) => {
     this.setState({
       notes: this.state.notes.filter(note => note.id !== id)
     });
   }
 
-  handleAddFolder = (folder) => {
+  handleAddFolder = (folderName, folderId) => {
     let currentFolders = this.state.folders
-    let newFolder = folder;
+    let newFolder = {name: folderName, id: folderId};
     this.setState({
       folders: [...currentFolders, newFolder]
     })
@@ -61,6 +60,7 @@ class App extends Component {
   handleAddNote = (note) => {
     let currentNotes = this.state.notes
     let newNote = note;
+    console.log(newNote)
     this.setState({
       notes: [...currentNotes, newNote]
     })
@@ -84,14 +84,14 @@ class App extends Component {
         <Route exact path='/' component={ListSidebar} />
         <Route path='/folder/:folderId' component={ListSidebar} />
         <Route path='/note/:noteId' component={NotePgSidebar} />
-        <Route path='/add-folder' component={NotePgSidebar} />
-        <Route path='/add-note' component={NotePgSidebar} />
+        <Route path='/add-folder' component={AddFolderSidebar} />
+        <Route path='/add-note' component={AddFolderSidebar} />
       </>
     )
   }
 
   render() {
-    const contextValues = {
+    const contextVals = {
       notes: this.state.notes,
       folders: this.state.folders,
       deleteNote: this.handleDeleteNote,
@@ -99,7 +99,7 @@ class App extends Component {
       addNote: this.handleAddNote,
     };
     return (
-      <FilesContext.Provider value={contextValues}>
+      <FilesContext.Provider value={contextVals}>
         <div className='App'>
           <header className='App-header'>
             <h1>

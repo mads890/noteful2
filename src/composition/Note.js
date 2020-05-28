@@ -22,7 +22,6 @@ export default class Note extends Component {
         fetch(url, options)
         .then(response => {
             if (!response.ok) {
-                //throw new Error(`Something went wrong: ${response.message}`) ?
                 return response.json()
                 .then(err => Promise.reject(err))
             }

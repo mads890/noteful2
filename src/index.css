@@ -59,9 +59,63 @@ a {
   color: black;
 }
 
-.add-link {
+.add-link, .submit-button {
   background-color: greenyellow;
   padding: 10px;
   border-radius: 15px;
   border: 1px solid darkgreen;
+}
+
+.submit-button {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+input {
+  border: 1px solid black;
+  padding: 10px;
+}
+
+select {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.form-container {
+  border: 1px solid black;
+  text-align: center;
+}
+
+.folders-list-item:hover {
+  background-color: lightblue;
+}
+
+.folder-title {
+  border: 1px solid black;
+  margin-right: 20px;
+}
+
+.delete-button {
+  background-color: red;
+  padding: 10px;
+  border-radius: 15px;
+  border: 1px solid darkred;
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.back-button {
+  background-color: rgb(183, 218, 248);
+  border: 1px solid darkblue;
+  padding: 10px;
+  border-radius: 15px;
+  cursor: pointer;
+  margin-top: 15px;
 }

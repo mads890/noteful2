@@ -16,12 +16,15 @@ export default class NotePgMain extends Component {
     }
 
     getNote = (notes, id) => {
-        notes.find(note => note.id === id)
+        const note = notes.find(note => note.id === id)
+        console.log(notes)
+        return note;
     }
 
     render() {
         const { notes } = this.context
         const { noteId } = this.props.match.params
+        if (notes.length > 0) {
         const note = this.getNote(notes, noteId)
         return (
             <section className='note-page-main'>
@@ -36,6 +39,8 @@ export default class NotePgMain extends Component {
                 </div>
             </section>
         );
+        }
+        else return <div></div>
     }
 }
 
