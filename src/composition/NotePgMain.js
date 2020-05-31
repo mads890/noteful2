@@ -7,17 +7,17 @@ export default class NotePgMain extends Component {
     static defaultProps = {
         match: {
             params: {}
-        }
+        },
+        history: {},
     }
     static contextType = FilesContext;
 
-    backToList = () => {
+    handleGoBack = () => {
         this.props.history.push('/')
     }
-
+    
     getNote = (notes, id) => {
         const note = notes.find(note => note.id === id)
-        console.log(notes)
         return note;
     }
 
@@ -32,7 +32,7 @@ export default class NotePgMain extends Component {
                     id={noteId}
                     title={note.name}
                     date={note.modified}
-                    onDeleteNote={this.backToList}
+                    onDeleteNote={this.handleGoBack}
                 />
                 <div className='note-content'>
                     {note.content}
@@ -46,4 +46,5 @@ export default class NotePgMain extends Component {
 
 NotePgMain.propTypes = {
     match: PropTypes.object.isRequired,
+    history: PropTypes.object.isRequired
 }

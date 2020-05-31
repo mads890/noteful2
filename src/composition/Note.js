@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 export default class Note extends Component {
     static defaultProps = {
-        onDeleteNote: () => {},
+        deleteNote: () => {},
     }
     static contextType = FilesContext;
 
@@ -28,8 +28,8 @@ export default class Note extends Component {
             return response.json()
         })
         .then(() => {
-            this.context.deleteNote(id)
             this.props.onDeleteNote()
+            this.context.deleteNote(id)
         })
         .catch(err => {
             console.error({ err })
@@ -47,7 +47,7 @@ export default class Note extends Component {
                 </h2>
                 <button 
                     type='button'
-                    onClick={this.handleDeleteNote}
+                    onClick={e => this.handleDeleteNote(e)}
                     className='delete-button'
                 >
                     Delete
@@ -61,6 +61,7 @@ export default class Note extends Component {
 }
 
 Note.propTypes = {
+    deleteNote: PropTypes.func.isRequired,
     onDeleteNote: PropTypes.func.isRequired,
     title: PropTypes.string.isRequired,
     id: PropTypes.string.isRequired,

@@ -9,7 +9,7 @@ export default class ListMain extends Component {
     static defaultProps = {
         match: {
             params: {}
-        }
+        },
     }
     static contextType = FilesContext;
 
@@ -22,10 +22,15 @@ export default class ListMain extends Component {
         }
     }
 
+    handleGoBack = () => {
+        this.props.history.push('/')
+    }
+
     render() {
         const { folderId } = this.props.match.params
         const { notes } = this.context
         const folderNotes = this.matchFolderNotes(notes, folderId)
+        const handleGoBack = this.handleGoBack
         return(
             <section className='list-main'>
                 <ErrorBoundary>
@@ -36,6 +41,7 @@ export default class ListMain extends Component {
                                 id={note.id}
                                 title={note.name}
                                 date={note.modified}
+                                onDeleteNote={handleGoBack}
                             />
                         </li>
                     )}
@@ -50,5 +56,5 @@ export default class ListMain extends Component {
 }
 
 ListMain.propTypes = {
-    match: PropTypes.object.isRequired,
+    match: PropTypes.object.isRequired
 }
