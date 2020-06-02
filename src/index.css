@@ -102,7 +102,7 @@ select {
 }
 
 .delete-button {
-  background-color: red;
+  background-color: darkred;
   padding: 10px;
   border-radius: 15px;
   border: 1px solid darkred;

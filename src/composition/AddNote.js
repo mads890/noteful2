@@ -70,17 +70,17 @@ export default class AddNote extends Component {
                 <option value={folder.id} key={folder.id}>{folder.name}</option>
             )
         return(
-            <div className='form-container'>
+            <section className='form-container'>
                 <h2>Create a New Note</h2>
                 <form className='note-form' onSubmit={e => this.handleSubmit(e)}>
-                    <input type='text' required name='title' placeholder='Title' aria-label='Name your new note' onChange={e => this.handleChangeTitle(e.target.value)} />
-                    <select name='folder' required aria-label='Select a folder for this note' onChange={e => this.handleChangeFolder(e.target.value)} >
+                    <input type='text' required aria-required name='title' placeholder='Title' aria-label='Name your new note' onChange={e => this.handleChangeTitle(e.target.value)} />
+                    <select name='folder' required aria-required aria-label='Select a folder for this note' onChange={e => this.handleChangeFolder(e.target.value)} >
                         {folderOptions}
                     </select>
-                    <input type='textarea' required name='content' placeholder='Write something...' aria-label='Input the content of your note' onChange={e => this.handleChangeContent(e.target.value)} />
+                    <input type='textarea' required aria-required name='content' placeholder='Write something...' aria-label='Input the content of your note' onChange={e => this.handleChangeContent(e.target.value)} />
                     <button type='submit' className='submit-button' aria-label='Create new note'>Create</button>
                 </form>
-            </div>
+            </section>
         );
     }
 }

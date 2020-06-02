@@ -49,13 +49,13 @@ export default class AddFolder extends Component {
 
     render() {
         return (
-            <div className='form-container'>
+            <section className='form-container'>
                 <h2>Create a New Folder</h2>
                 <form className='folder-form' onSubmit={e => this.handleSubmit(e)}>
-                    <input required type='text' name='name' placeholder='Folder name' aria-label='Name your new folder' onChange={e => this.handleChangeName(e.target.value)} />
+                    <input required aria-required type='text' name='name' placeholder='Folder name' aria-label='Name your new folder' onChange={e => this.handleChangeName(e.target.value)} />
                     <button type='submit' className='submit-button' aria-label='Create new folder'>Create</button>
                 </form>
-            </div>
+            </section>
         );
     }
 }

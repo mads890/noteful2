@@ -34,9 +34,9 @@ export default class NotePgMain extends Component {
                     date={note.modified}
                     onDeleteNote={this.handleGoBack}
                 />
-                <div className='note-content'>
+                <main className='note-content'>
                     {note.content}
-                </div>
+                </main>
             </section>
         );
         }

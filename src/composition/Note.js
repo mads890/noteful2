@@ -39,7 +39,7 @@ export default class Note extends Component {
     render() {
         const { title, id, date } = this.props
         return (
-            <div className='notes-list-item'>
+            <header className='notes-list-item'>
                 <h2>
                     <Link to={`/note/${id}`}>
                         {title}
@@ -55,7 +55,7 @@ export default class Note extends Component {
                 <div className='date'>
                     <p>Date modified on <span>{date}</span></p>
                 </div>
-            </div>
+            </header>
         );
     }
 }

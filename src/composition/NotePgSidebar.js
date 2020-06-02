@@ -31,9 +31,9 @@ export default class NotePgSidebar extends Component {
             const folder = this.getFolder(folders, note.folderId)
             return (
                 <section className='note-sidebar'>
-                    <div className='folder-title'>
+                    <header className='folder-title'>
                         <h3>{folder.name}</h3>
-                    </div>
+                    </header>
                     <button
                         type='button'
                         className='back-button'
