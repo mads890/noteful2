@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import FilesContext from './FilesContext';
 import PropTypes from 'prop-types';
+import API_TOKEN from '../config'
 
 export default class AddNote extends Component {
 
@@ -8,8 +9,9 @@ export default class AddNote extends Component {
         super(props);
         this.state = {
             title: '',
-            folderId: '',
-            content: ''
+            folder_id: '',
+            content: '',
+            author: ''
         }
     }
 
@@ -22,28 +24,34 @@ export default class AddNote extends Component {
         this.setState({ title })
     }
 
-    handleChangeFolder = (folderId) => {
-        this.setState({ folderId })
+    handleChangeFolder = (folder_id) => {
+        this.setState({ folder_id })
     }
 
     handleChangeContent = (content) => {
         this.setState({ content })
     }
 
+    handleChangeAuthor = (author) => {
+        this.setState({ author })
+    }
+
     handleSubmit = (e) => {
         e.preventDefault();
         let mod = new Date();
         const note = {
-            name: this.state.title,
-            folderId: this.state.folderId,
+            title: this.state.title,
+            folder_id: this.state.folder_id,
             content: this.state.content,
+            author: this.state.author,
             modified: mod
         }
         const url = 'http://localhost:9090/notes'
         const options = {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${API_TOKEN}`
             },
             body: JSON.stringify(note)
         }
@@ -67,7 +75,7 @@ export default class AddNote extends Component {
         const { folders } = this.context;
         
         const folderOptions = folders.map(folder => 
-                <option value={folder.id} key={folder.id}>{folder.name}</option>
+                <option value={folder.id} key={folder.id}>{folder.title}</option>
             )
         return(
             <section className='form-container'>
@@ -78,6 +86,7 @@ export default class AddNote extends Component {
                         {folderOptions}
                     </select>
                     <input type='textarea' required aria-required name='content' placeholder='Write something...' aria-label='Input the content of your note' onChange={e => this.handleChangeContent(e.target.value)} />
+                    <input type='text' required aria-required name='author' placeholder='Author' aria-label='Author of this note' onChange={e => this.handleChangeAuthor(e.target.value)} />
                     <button type='submit' className='submit-button' aria-label='Create new note'>Create</button>
                 </form>
             </section>

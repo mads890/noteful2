@@ -30,7 +30,7 @@ export default class NotePgMain extends Component {
             <section className='note-page-main'>
                 <Note
                     id={noteId}
-                    title={note.name}
+                    title={note.title}
                     date={note.modified}
                     onDeleteNote={this.handleGoBack}
                 />

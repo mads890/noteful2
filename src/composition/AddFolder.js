@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import FilesContext from './FilesContext';
 import PropTypes from 'prop-types';
+import API_TOKEN from '../config';
 
 export default class AddFolder extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            name: ''
+            title: ''
         }
     }
 
@@ -16,20 +17,21 @@ export default class AddFolder extends Component {
     }
     static contextType = FilesContext;
 
-    handleChangeName = (name) => {
-        this.setState({ name })
+    handleChangeName = (title) => {
+        this.setState({ title })
     }
 
     handleSubmit = (e) => {
         e.preventDefault();
-        const name = {name: this.state.name}
-        const url = 'http://localhost:9090/folders'
+        const title = {title: this.state.title}
+        const url = 'http://localhost:8000/api/folders'
         const options = {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${API_TOKEN}`
             },
-            body: JSON.stringify(name)
+            body: JSON.stringify(title)
         }
         fetch(url, options)
         .then(res => {
@@ -39,7 +41,7 @@ export default class AddFolder extends Component {
             return res.json()
         })
         .then(resJson => {
-            this.context.addFolder(resJson.name, resJson.id)
+            this.context.addFolder(resJson.title, resJson.id)
             this.props.history.push('/')
         })
         .catch(err => {

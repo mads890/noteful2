@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import FilesContext from './FilesContext';
 import PropTypes from 'prop-types';
+import API_TOKEN from '../config'
 
 export default class Note extends Component {
     static defaultProps = {
@@ -12,11 +13,12 @@ export default class Note extends Component {
     handleDeleteNote = (e) => {
         e.preventDefault();
         const id = this.props.id
-        const url = `http://localhost:9090/notes/${id}`
+        const url = `http://localhost:8000/api/notes/${id}`
         const options = {
             method: 'DELETE',
             headers: {
-                'content-type': 'application/json'
+                'content-type': 'application/json',
+                'Authorization': `Bearer ${API_TOKEN}`
             }
         }
         fetch(url, options)

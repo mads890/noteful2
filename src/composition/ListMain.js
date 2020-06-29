@@ -18,7 +18,7 @@ export default class ListMain extends Component {
             return notes
         }
         else {
-            return notes.filter(note => note.folderId === folderId)
+            return notes.filter(note => note.folder_id === folderId)
         }
     }
 
@@ -27,9 +27,9 @@ export default class ListMain extends Component {
     }
 
     render() {
-        const { folderId } = this.props.match.params
+        const { folder_id } = this.props.match.params
         const { notes } = this.context
-        const folderNotes = this.matchFolderNotes(notes, folderId)
+        const folderNotes = this.matchFolderNotes(notes, folder_id)
         const handleGoBack = this.handleGoBack
         return(
             <section className='list-main'>
@@ -39,7 +39,7 @@ export default class ListMain extends Component {
                         <li key={note.id}>
                             <Note
                                 id={note.id}
-                                title={note.name}
+                                title={note.title}
                                 date={note.modified}
                                 onDeleteNote={handleGoBack}
                             />
