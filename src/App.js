@@ -37,7 +37,7 @@ class App extends Component {
     })
     .then(([notes, folders]) => {
       this.setState({
-        notes, folders,
+        notes, folders
       });
     })
     .catch(err => {
