@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import FilesContext from './FilesContext';
 import PropTypes from 'prop-types';
-import API_TOKEN from '../config'
+import API_TOKEN from '../config';
 
-export default class AddNote extends Component {
+export default class EditNote extends Component {
 
     constructor(props) {
         super(props);
@@ -40,9 +40,9 @@ export default class AddNote extends Component {
             content: this.state.content,
             modified: mod
         }
-        const url = 'http://localhost:8000/api/notes'
+        const url = 'http://localhost:8000/api/notes/:id'
         const options = {
-            method: 'POST',
+            method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${API_TOKEN}`
@@ -57,7 +57,7 @@ export default class AddNote extends Component {
             return res.json()
         })
         .then(resJson => {
-            this.context.addNote(resJson)
+            this.context.patchNote(resJson)
             this.props.history.push('/')
         })
         .catch(err => {
@@ -65,27 +65,40 @@ export default class AddNote extends Component {
         })
     }
 
+    handleInitialState = (note) => {
+        this.setState({
+            title: note.title
+            folder_id: note.folder_id
+            content: note.content
+        })
+    }
+
+    getNote = (notes, id) => {
+        const note = notes.find(note => note.id === id)
+        return note;
+    }
+
     render() {
+        const { id } = this.props.match.params
+        const { notes } = this.context
+        const note = getNote(notes, id)
+        this.handleInitialState(note)
         const { folders } = this.context;
         const folderOptions = folders.map(folder => 
                 <option value={folder.id} key={folder.id}>{folder.title}</option>
             )
-        return(
+        return (
             <section className='form-container'>
-                <h2>Create a New Note</h2>
+                <h2>Edit Note {this.state.title}</h2>
                 <form className='note-form' onSubmit={e => this.handleSubmit(e)}>
-                    <input type='text' required aria-required name='title' placeholder='Title' aria-label='Name your new note' onChange={e => this.handleChangeTitle(e.target.value)} />
-                    <select name='folder' required aria-required aria-label='Select a folder for this note' onChange={e => this.handleChangeFolder(e.target.value)} >
+                    <input type='text' required aria-required name='title' placeholder={this.state.title} aria-label='Update the name of this note' onChange={e => this.handleChangeTitle(e.target.value)} />
+                    <select name='folder' required aria-required aria-label='Change the folder for this note' onChange={e => this.handleChangeFolder(e.target.value)} >
                         {folderOptions}
                     </select>
-                    <input type='textarea' required aria-required name='content' placeholder='Write something...' aria-label='Input the content of your note' onChange={e => this.handleChangeContent(e.target.value)} />
-                    <button type='submit' className='submit-button' aria-label='Create new note'>Create</button>
+                    <input type='textarea' required aria-required placeholder={this.state.content} name='content' aria-label='Update the content of this note' onChange={e => this.handleChangeContent(e.target.value)} />
+                    <button type='submit' className='submit-button' aria-label='Update note'>Update</button>
                 </form>
             </section>
-        );
+        )
     }
-}
-
-AddNote.propTypes = {
-    history: PropTypes.object.isRequired,
 }

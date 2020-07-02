@@ -8,7 +8,9 @@ import FilesContext from './composition/FilesContext';
 import ErrorBoundary from './composition/ErrorBoundary';
 import AddFolder from './composition/AddFolder';
 import AddNote from './composition/AddNote';
-import AddFolderSidebar from './composition/AddFolderSidebar'
+import AddFolderSidebar from './composition/AddFolderSidebar';
+import EditNote from './composition/EditNote';
+import EditFolder from './composition/EditFolder';
 
 class App extends Component {
   constructor(props) {
@@ -66,6 +68,28 @@ class App extends Component {
     })
   }
 
+  handleEditFolder = (newData, id) => {
+    let folderIndex = this.state.folders.findIndex(folder => folder.id === id)
+    let folderToUpdate = this.state.folders.filter(folder => folder.id === id)
+    folderToUpdate = {...folderToUpdate, ...newData}
+    let currentFolders = this.state.folders
+    currentFolders.splice(folderIndex, 1)
+    this.setState({
+      folders: {...currentFolders, folderToUpdate}
+    })
+  }
+
+  handleEditNote = (newData, id) => {
+    let noteIndex = this.state.notes.findIndex(note => note.id === id)
+    let noteToUpdate = this.state.notes.filter(note => note.id === id)
+    noteToUpdate = {...noteToUpdate, ...newData}
+    let currentNotes = this.state.notes
+    currentNotes.splice(noteIndex, 1)
+    this.setState({
+      notes: {...currentNotes, noteToUpdate}
+    })
+  }
+
   renderMainRoutes() {
     return (
       <>
@@ -74,6 +98,8 @@ class App extends Component {
         <Route path='/note/:noteId' component={NotePgMain} />
         <Route path='/add-folder' component={AddFolder} />
         <Route path='/add-note' component={AddNote} />
+        <Route path='/edit-folder' component={EditFolder} />
+        <Route path='/edit-note' component={EditNote} />
       </>
     )
   }
@@ -86,6 +112,8 @@ class App extends Component {
         <Route path='/note/:noteId' component={NotePgSidebar} />
         <Route path='/add-folder' component={AddFolderSidebar} />
         <Route path='/add-note' component={AddFolderSidebar} />
+        <Route path='/edit-folder' component={AddFolderSidebar} />
+        <Route path='/edit-note' component={AddFolderSidebar} />
       </>
     )
   }
@@ -97,6 +125,8 @@ class App extends Component {
       deleteNote: this.handleDeleteNote,
       addFolder: this.handleAddFolder,
       addNote: this.handleAddNote,
+      patchFolder: this.handleEditFolder,
+      patchNote: this.handleEditNote
     };
     return (
       <FilesContext.Provider value={contextVals}>

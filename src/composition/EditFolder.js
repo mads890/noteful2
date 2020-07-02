@@ -3,7 +3,7 @@ import FilesContext from './FilesContext';
 import PropTypes from 'prop-types';
 import API_TOKEN from '../config';
 
-export default class AddFolder extends Component {
+export default class EditFolder extends Component {
 
     constructor(props) {
         super(props);
@@ -24,9 +24,9 @@ export default class AddFolder extends Component {
     handleSubmit = (e) => {
         e.preventDefault();
         const title = {title: this.state.title}
-        const url = 'http://localhost:8000/api/folders/'
+        const url = 'http://localhost:8000/api/folders/:id'
         const options = {
-            method: 'POST',
+            method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${API_TOKEN}`
@@ -41,7 +41,7 @@ export default class AddFolder extends Component {
             return res.json()
         })
         .then(resJson => {
-            this.context.addFolder(resJson.title, resJson.id)
+            this.context.patchFolder(resJson.title, resJson.id)
             this.props.history.push('/')
         })
         .catch(err => {
@@ -49,19 +49,30 @@ export default class AddFolder extends Component {
         })
     }
 
+    handleInitialState = (folder) => {
+        this.setState({
+            title: folder.title
+        })
+    }
+
+    getFolder = (folders, id) => {
+        const folder = folders.find(folder => folder.id === id)
+        return folder
+    }
+
     render() {
+        const { id } = this.props.match.params
+        const { folders } = this.context
+        const folder = getFolder(folders, id)
+        this.handleInitialState(folder)
         return (
             <section className='form-container'>
-                <h2>Create a New Folder</h2>
+                <h2>Edit Folder {this.state.folder}</h2>
                 <form className='folder-form' onSubmit={e => this.handleSubmit(e)}>
-                    <input required aria-required type='text' name='name' placeholder='Folder name' aria-label='Name your new folder' onChange={e => this.handleChangeTitle(e.target.value)} />
-                    <button type='submit' className='submit-button' aria-label='Create new folder'>Create</button>
+                    <input required aria-required placeholder={this.state.title} type='text' name='name' aria-label='Change the folder name' onChange={e => this.handleChangeTitle(e.target.value)} />
+                    <button type='submit' className='submit-button' aria-label='Update folder'>Update</button>
                 </form>
             </section>
-        );
+        )
     }
-}
-
-AddFolder.propTypes = {
-    history: PropTypes.object.isRequired,
 }
