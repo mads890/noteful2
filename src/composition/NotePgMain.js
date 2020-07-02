@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Note from './Note';
 import FilesContext from './FilesContext';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 export default class NotePgMain extends Component {
     static defaultProps = {
@@ -37,6 +38,7 @@ export default class NotePgMain extends Component {
                 <main className='note-content'>
                     {note.content}
                 </main>
+                <Link to={`edit-note/${noteId}`}>Edit Note</Link>
             </section>
         );
         }

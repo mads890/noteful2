@@ -98,8 +98,8 @@ class App extends Component {
         <Route path='/note/:noteId' component={NotePgMain} />
         <Route path='/add-folder' component={AddFolder} />
         <Route path='/add-note' component={AddNote} />
-        <Route path='/edit-folder' component={EditFolder} />
-        <Route path='/edit-note' component={EditNote} />
+        <Route path='/edit-folder/:id' component={EditFolder} />
+        <Route path='/edit-note/:id' component={EditNote} />
       </>
     )
   }
@@ -112,8 +112,8 @@ class App extends Component {
         <Route path='/note/:noteId' component={NotePgSidebar} />
         <Route path='/add-folder' component={AddFolderSidebar} />
         <Route path='/add-note' component={AddFolderSidebar} />
-        <Route path='/edit-folder' component={AddFolderSidebar} />
-        <Route path='/edit-note' component={AddFolderSidebar} />
+        <Route path='/edit-folder/:id' component={AddFolderSidebar} />
+        <Route path='/edit-note/:id' component={AddFolderSidebar} />
       </>
     )
   }

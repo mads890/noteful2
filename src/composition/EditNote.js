@@ -67,8 +67,8 @@ export default class EditNote extends Component {
 
     handleInitialState = (note) => {
         this.setState({
-            title: note.title
-            folder_id: note.folder_id
+            title: note.title,
+            folder_id: note.folder_id,
             content: note.content
         })
     }
@@ -81,7 +81,7 @@ export default class EditNote extends Component {
     render() {
         const { id } = this.props.match.params
         const { notes } = this.context
-        const note = getNote(notes, id)
+        const note = this.getNote(notes, id)
         this.handleInitialState(note)
         const { folders } = this.context;
         const folderOptions = folders.map(folder => 

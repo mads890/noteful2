@@ -63,7 +63,7 @@ export default class EditFolder extends Component {
     render() {
         const { id } = this.props.match.params
         const { folders } = this.context
-        const folder = getFolder(folders, id)
+        const folder = this.getFolder(folders, id)
         this.handleInitialState(folder)
         return (
             <section className='form-container'>
