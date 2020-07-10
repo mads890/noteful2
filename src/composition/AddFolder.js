@@ -29,7 +29,7 @@ export default class AddFolder extends Component {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${API_TOKEN}`
+                'Authorization': `Bearer ${API_TOKEN.API_TOKEN}`
             },
             body: JSON.stringify(title)
         }

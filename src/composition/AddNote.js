@@ -23,7 +23,8 @@ export default class AddNote extends Component {
         this.setState({ title })
     }
 
-    handleChangeFolder = (folder_id) => {
+    handleChangeFolder = (id) => {
+        let folder_id = parseInt(id)
         this.setState({ folder_id })
     }
 
@@ -40,12 +41,13 @@ export default class AddNote extends Component {
             content: this.state.content,
             modified: mod
         }
+        console.log(note)
         const url = 'http://localhost:8000/api/notes'
         const options = {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${API_TOKEN}`
+                'Authorization': `Bearer ${API_TOKEN.API_TOKEN}`
             },
             body: JSON.stringify(note)
         }
@@ -70,12 +72,14 @@ export default class AddNote extends Component {
         const folderOptions = folders.map(folder => 
                 <option value={folder.id} key={folder.id}>{folder.title}</option>
             )
+        console.log(folderOptions)
         return(
             <section className='form-container'>
                 <h2>Create a New Note</h2>
                 <form className='note-form' onSubmit={e => this.handleSubmit(e)}>
                     <input type='text' required aria-required name='title' placeholder='Title' aria-label='Name your new note' onChange={e => this.handleChangeTitle(e.target.value)} />
-                    <select name='folder' required aria-required aria-label='Select a folder for this note' onChange={e => this.handleChangeFolder(e.target.value)} >
+                    <select name='folder' required aria-required aria-label='Select a folder for this note' defaultValue='default' onChange={e => this.handleChangeFolder(e.target.value)} >
+                        <option value='default' name='default' disabled>Select a Folder</option>
                         {folderOptions}
                     </select>
                     <input type='textarea' required aria-required name='content' placeholder='Write something...' aria-label='Input the content of your note' onChange={e => this.handleChangeContent(e.target.value)} />

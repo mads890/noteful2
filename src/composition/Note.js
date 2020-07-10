@@ -17,8 +17,8 @@ export default class Note extends Component {
         const options = {
             method: 'DELETE',
             headers: {
-                'content-type': 'application/json',
-                'Authorization': `Bearer ${API_TOKEN}`
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${API_TOKEN.API_TOKEN}`
             }
         }
         fetch(url, options)

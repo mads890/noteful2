@@ -27,7 +27,8 @@ export default class ListMain extends Component {
     }
 
     render() {
-        const { folder_id } = this.props.match.params
+        const folder_id = this.props.match.params.folderId
+        console.log(folder_id)
         const { notes } = this.context
         const folderNotes = this.matchFolderNotes(notes, folder_id)
         const handleGoBack = this.handleGoBack
