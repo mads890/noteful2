@@ -19,7 +19,7 @@ export default class ListSidebar extends Component {
                 <ul className='folders-list'>
                     {folders.map(folder => 
                         <li key={folder.id} id={folder.id} className='folders-list-item'>
-                            <Link to={`/folder/${folder.id}`} className='folder-link'>
+                            <Link to={`/folders/${folder.id}`} className='folder-link'>
                                 <p><span>{this.getNumNotes(notes, folder.id)}</span> {folder.title}</p>
                             </Link>
                             <Link to={`edit-folder/${folder.id}`}>Edit Folder</Link>

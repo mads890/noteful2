@@ -11,6 +11,7 @@ import AddNote from './composition/AddNote';
 import AddFolderSidebar from './composition/AddFolderSidebar';
 import EditNote from './composition/EditNote';
 import EditFolder from './composition/EditFolder';
+import API_TOKEN from './config';
 
 class App extends Component {
   constructor(props) {
@@ -22,9 +23,16 @@ class App extends Component {
   }
 
   componentDidMount() {
+    const options = {
+      method: 'GET',
+      headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${API_TOKEN.API_TOKEN}`
+      }
+    }
     Promise.all([
-      fetch('http://localhost:8000/api/notes'),
-      fetch('http://localhost:8000/api/folders')
+      fetch('http://localhost:8000/api/notes', options),
+      fetch('http://localhost:8000/api/folders', options)
     ])
     .then(([notesResponse, foldersResponse]) => {
       if (!notesResponse.ok) {
@@ -94,8 +102,8 @@ class App extends Component {
     return (
       <>
         <Route exact path='/' component={ListMain} />
-        <Route path='/folder/:folderId' component={ListMain} />
-        <Route path='/note/:noteId' component={NotePgMain} />
+        <Route path='/folders/:folderId' component={ListMain} />
+        <Route path='/notes/:noteId' component={NotePgMain} />
         <Route path='/add-folder' component={AddFolder} />
         <Route path='/add-note' component={AddNote} />
         <Route path='/edit-folder/:id' component={EditFolder} />
@@ -108,8 +116,8 @@ class App extends Component {
     return (
       <>
         <Route exact path='/' component={ListSidebar} />
-        <Route path='/folder/:folderId' component={ListSidebar} />
-        <Route path='/note/:noteId' component={NotePgSidebar} />
+        <Route path='/folders/:folderId' component={ListSidebar} />
+        <Route path='/notes/:noteId' component={NotePgSidebar} />
         <Route path='/add-folder' component={AddFolderSidebar} />
         <Route path='/add-note' component={AddFolderSidebar} />
         <Route path='/edit-folder/:id' component={AddFolderSidebar} />

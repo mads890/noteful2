@@ -29,7 +29,7 @@ export default class EditFolder extends Component {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${API_TOKEN}`
+                'Authorization': `Bearer ${API_TOKEN.API_TOKEN}`
             },
             body: JSON.stringify(title)
         }
@@ -57,14 +57,17 @@ export default class EditFolder extends Component {
 
     getFolder = (folders, id) => {
         const folder = folders.find(folder => folder.id === id)
+        this.handleInitialState(folder)
         return folder
     }
 
     render() {
-        const { id } = this.props.match.params
+        const id = this.props.match.params.folderId
         const { folders } = this.context
+        console.log(folders, id)
         const folder = this.getFolder(folders, id)
-        this.handleInitialState(folder)
+        console.log(folder)
+        
         return (
             <section className='form-container'>
                 <h2>Edit Folder {this.state.folder}</h2>

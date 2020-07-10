@@ -14,12 +14,11 @@ export default class ListMain extends Component {
     static contextType = FilesContext;
 
     matchFolderNotes = (notes, folderId) => {
-        if (!folderId) {
-            return notes
+        if (folderId) {
+            const filteredNotes = notes.filter(note => note.folder_id == folderId)
+            return filteredNotes
         }
-        else {
-            return notes.filter(note => note.folder_id === folderId)
-        }
+        return notes
     }
 
     handleGoBack = () => {
@@ -28,7 +27,6 @@ export default class ListMain extends Component {
 
     render() {
         const folder_id = this.props.match.params.folderId
-        console.log(folder_id)
         const { notes } = this.context
         const folderNotes = this.matchFolderNotes(notes, folder_id)
         const handleGoBack = this.handleGoBack

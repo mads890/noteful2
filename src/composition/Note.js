@@ -43,7 +43,7 @@ export default class Note extends Component {
         return (
             <header className='notes-list-item'>
                 <h2>
-                    <Link to={`/note/${id}`}>
+                    <Link to={`/notes/${id}`}>
                         {title}
                     </Link>
                 </h2>
