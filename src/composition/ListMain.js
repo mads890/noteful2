@@ -4,6 +4,7 @@ import Note from './Note';
 import FilesContext from './FilesContext';
 import ErrorBoundary from './ErrorBoundary';
 import PropTypes from 'prop-types';
+import API_TOKEN from '../config';
 
 export default class ListMain extends Component {
     static defaultProps = {
@@ -13,9 +14,38 @@ export default class ListMain extends Component {
     }
     static contextType = FilesContext;
 
+    handleDeleteFolder = (e) => {
+        e.preventDefault();
+        const id = e.target.id
+        const url = `http://localhost:8000/api/folders/${id}`
+        const options = {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${API_TOKEN.API_TOKEN}`
+            }
+        }
+        fetch(url, options)
+        .then(response => {
+            if (!response.ok) {
+                return response
+                .then(err => Promise.reject(err))
+            }
+            return response
+        })
+        .finally(() => {
+            this.context.deleteFolder(id)
+            this.props.history.push('/')
+            window.location.reload()
+        })
+        .catch(err => {
+            console.error({ err })
+        })
+    }
+
     matchFolderNotes = (notes, folderId) => {
         if (folderId) {
-            const filteredNotes = notes.filter(note => note.folder_id == folderId)
+            const filteredNotes = notes.filter(note => note.folder_id === folderId)
             return filteredNotes
         }
         return notes
@@ -26,10 +56,20 @@ export default class ListMain extends Component {
     }
 
     render() {
-        const folder_id = this.props.match.params.folderId
+        const folder_id = parseInt(this.props.match.params.folderId)
         const { notes } = this.context
         const folderNotes = this.matchFolderNotes(notes, folder_id)
-        const handleGoBack = this.handleGoBack
+        const deleteFolder = folder_id 
+        ? <button
+            id={folder_id} 
+            type='button'
+            onClick={e => this.handleDeleteFolder(e)}
+            className='delete-button'
+            disabled={folderNotes.length > 0 ? true : false}
+        >
+            Delete Folder
+        </button>
+        : ''
         return(
             <section className='list-main'>
                 <ErrorBoundary>
@@ -40,7 +80,7 @@ export default class ListMain extends Component {
                                 id={note.id}
                                 title={note.title}
                                 date={note.modified}
-                                onDeleteNote={handleGoBack}
+                                onDeleteNote={this.handleGoBack}
                             />
                         </li>
                     )}
@@ -49,6 +89,9 @@ export default class ListMain extends Component {
                 <Link to='/add-note' className='add-link'>
                     Add Note
                 </Link>
+                <section>
+                    {deleteFolder}
+                </section>
             </section>
         );
     }

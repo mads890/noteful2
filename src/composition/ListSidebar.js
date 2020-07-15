@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import FilesContext from './FilesContext';
 import ErrorBoundary from './ErrorBoundary';
 
+
 export default class ListSidebar extends Component {
     static contextType = FilesContext;
 
@@ -22,7 +23,7 @@ export default class ListSidebar extends Component {
                             <Link to={`/folders/${folder.id}`} className='folder-link'>
                                 <p><span>{this.getNumNotes(notes, folder.id)}</span> {folder.title}</p>
                             </Link>
-                            <Link to={`edit-folder/${folder.id}`}>Edit Folder</Link>
+                            <Link to={`/edit-folder/${folder.id}`}>Edit Folder</Link>
                         </li>
                     )}
                 </ul>

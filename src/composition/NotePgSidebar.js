@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import FilesContext from './FilesContext';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 export default class NotePgSidebar extends Component {
     static defaultProps = {
@@ -25,9 +26,7 @@ export default class NotePgSidebar extends Component {
 
     render() {
         const { notes, folders } = this.context
-        const id = this.props.match.params
-        console.log(notes)
-        console.log(folders)
+        const id = parseInt(this.props.match.params.noteId)
         if (notes.length > 0) {
             const note = this.getNote(notes, id)
             const folder = this.getFolder(folders, note.folder_id)
@@ -36,6 +35,13 @@ export default class NotePgSidebar extends Component {
                     <header className='folder-title'>
                         <h3>{folder.title}</h3>
                     </header>
+                    
+                    <button
+                        type='button'
+                        className='edit-link'
+                    >
+                        <Link to={`/edit-note/${id}`}>Edit Note</Link>
+                    </button>
                     <button
                         type='button'
                         className='back-button'

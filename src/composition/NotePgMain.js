@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Note from './Note';
 import FilesContext from './FilesContext';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+
 
 export default class NotePgMain extends Component {
     static defaultProps = {
@@ -24,13 +24,13 @@ export default class NotePgMain extends Component {
 
     render() {
         const { notes } = this.context
-        const { noteId } = this.props.match.params
+        const noteId = parseInt(this.props.match.params.noteId)
         if (notes.length > 0) {
         const note = this.getNote(notes, noteId)
         return (
             <section className='note-page-main'>
                 <Note
-                    id={noteId}
+                    id={parseInt(noteId)}
                     title={note.title}
                     date={note.modified}
                     onDeleteNote={this.handleGoBack}
@@ -38,7 +38,7 @@ export default class NotePgMain extends Component {
                 <main className='note-content'>
                     {note.content}
                 </main>
-                <Link to={`edit-note/${noteId}`}>Edit Note</Link>
+                
             </section>
         );
         }

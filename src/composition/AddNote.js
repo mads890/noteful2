@@ -41,7 +41,6 @@ export default class AddNote extends Component {
             content: this.state.content,
             modified: mod
         }
-        console.log(note)
         const url = 'http://localhost:8000/api/notes'
         const options = {
             method: 'POST',
@@ -72,7 +71,6 @@ export default class AddNote extends Component {
         const folderOptions = folders.map(folder => 
                 <option value={folder.id} key={folder.id}>{folder.title}</option>
             )
-        console.log(folderOptions)
         return(
             <section className='form-container'>
                 <h2>Create a New Note</h2>

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import FilesContext from './FilesContext';
 import PropTypes from 'prop-types';
-import API_TOKEN from '../config'
+import API_TOKEN from '../config';
 
 export default class Note extends Component {
     static defaultProps = {
@@ -24,14 +24,14 @@ export default class Note extends Component {
         fetch(url, options)
         .then(response => {
             if (!response.ok) {
-                return response.json()
+                return response
                 .then(err => Promise.reject(err))
             }
-            return response.json()
+            return response
         })
-        .then(() => {
-            this.props.onDeleteNote()
+        .finally(() => {
             this.context.deleteNote(id)
+            this.props.onDeleteNote()
         })
         .catch(err => {
             console.error({ err })

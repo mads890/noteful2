@@ -59,6 +59,12 @@ class App extends Component {
     });
   }
 
+  handleDeleteFolder = (id) => {
+    this.setState({
+      folders: this.state.folders.filter(folder => folder.id !== id)
+    })
+  }
+
   handleAddFolder = (folderName, folderId) => {
     let currentFolders = this.state.folders
     let newFolder = {title: folderName, id: folderId};
@@ -78,13 +84,14 @@ class App extends Component {
 
   handleEditFolder = (newData, id) => {
     let folderIndex = this.state.folders.findIndex(folder => folder.id === id)
-    let folderToUpdate = this.state.folders.filter(folder => folder.id === id)
-    folderToUpdate = {...folderToUpdate, ...newData}
+    // let folderToUpdate = this.state.folders.find(folder => folder.id == id)
+    let folderToUpdate = {...newData, id: id}
+    console.log(folderToUpdate)
     let currentFolders = this.state.folders
-    currentFolders.splice(folderIndex, 1)
+    currentFolders.splice(folderIndex, 1, folderToUpdate)
     this.setState({
-      folders: {...currentFolders, folderToUpdate}
-    })
+      folders: [...currentFolders]
+      })
   }
 
   handleEditNote = (newData, id) => {
@@ -98,6 +105,8 @@ class App extends Component {
     })
   }
 
+  
+
   renderMainRoutes() {
     return (
       <>
@@ -106,8 +115,8 @@ class App extends Component {
         <Route path='/notes/:noteId' component={NotePgMain} />
         <Route path='/add-folder' component={AddFolder} />
         <Route path='/add-note' component={AddNote} />
-        <Route path='/edit-folder/:id' component={EditFolder} />
-        <Route path='/edit-note/:id' component={EditNote} />
+        <Route path='/edit-folder/:folderId' component={EditFolder} />
+        <Route path='/edit-note/:noteId' component={EditNote} />
       </>
     )
   }
@@ -120,8 +129,8 @@ class App extends Component {
         <Route path='/notes/:noteId' component={NotePgSidebar} />
         <Route path='/add-folder' component={AddFolderSidebar} />
         <Route path='/add-note' component={AddFolderSidebar} />
-        <Route path='/edit-folder/:id' component={AddFolderSidebar} />
-        <Route path='/edit-note/:id' component={AddFolderSidebar} />
+        <Route path='/edit-folder/:folderId' component={AddFolderSidebar} />
+        <Route path='/notes/:noteId' component={AddFolderSidebar} />
       </>
     )
   }
@@ -131,6 +140,7 @@ class App extends Component {
       notes: this.state.notes,
       folders: this.state.folders,
       deleteNote: this.handleDeleteNote,
+      deleteFolder: this.handleDeleteFolder,
       addFolder: this.handleAddFolder,
       addNote: this.handleAddNote,
       patchFolder: this.handleEditFolder,
