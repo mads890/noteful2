@@ -24,7 +24,7 @@ export default class EditFolder extends Component {
         e.preventDefault();
         const title = {"title": `${this.state.title}`}
         const id = parseInt(this.props.match.params.folderId)
-        const url = `http://localhost:8000/api/folders/${id}`
+        const url = `https://cryptic-brook-62254.herokuapp.com/api/folders/${id}`
         const options = {
             method: 'PATCH',
             headers: {

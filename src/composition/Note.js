@@ -13,7 +13,7 @@ export default class Note extends Component {
     handleDeleteNote = (e) => {
         e.preventDefault();
         const id = this.props.id
-        const url = `http://localhost:8000/api/notes/${id}`
+        const url = `https://cryptic-brook-62254.herokuapp.com/api/notes/${id}`
         const options = {
             method: 'DELETE',
             headers: {

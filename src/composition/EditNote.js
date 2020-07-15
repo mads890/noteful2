@@ -43,7 +43,7 @@ export default class EditNote extends Component {
             content: this.state.content,
             modified: mod
         }
-        const url = `http://localhost:8000/api/notes/${id}`
+        const url = `https://cryptic-brook-62254.herokuapp.com/api/notes/${id}`
         const options = {
             method: 'PATCH',
             headers: {

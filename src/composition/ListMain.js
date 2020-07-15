@@ -17,7 +17,7 @@ export default class ListMain extends Component {
     handleDeleteFolder = (e) => {
         e.preventDefault();
         const id = e.target.id
-        const url = `http://localhost:8000/api/folders/${id}`
+        const url = `https://cryptic-brook-62254.herokuapp.com/api/folders/${id}`
         const options = {
             method: 'DELETE',
             headers: {

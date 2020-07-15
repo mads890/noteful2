@@ -24,7 +24,7 @@ export default class AddFolder extends Component {
     handleSubmit = (e) => {
         e.preventDefault();
         const title = {title: this.state.title}
-        const url = 'http://localhost:8000/api/folders/'
+        const url = `https://cryptic-brook-62254.herokuapp.com/api/folders/`
         const options = {
             method: 'POST',
             headers: {

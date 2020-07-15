@@ -41,7 +41,7 @@ export default class AddNote extends Component {
             content: this.state.content,
             modified: mod
         }
-        const url = 'http://localhost:8000/api/notes'
+        const url = `https://cryptic-brook-62254.herokuapp.com/api/notes`
         const options = {
             method: 'POST',
             headers: {

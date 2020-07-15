@@ -30,9 +30,10 @@ class App extends Component {
           'Authorization': `Bearer ${API_TOKEN.API_TOKEN}`
       }
     }
+    console.log(API_TOKEN)
     Promise.all([
-      fetch('http://localhost:8000/api/notes', options),
-      fetch('http://localhost:8000/api/folders', options)
+      fetch('https://cryptic-brook-62254.herokuapp.com/api/notes', options),
+      fetch('https://cryptic-brook-62254.herokuapp.com/api/folders', options)
     ])
     .then(([notesResponse, foldersResponse]) => {
       if (!notesResponse.ok) {
@@ -84,7 +85,6 @@ class App extends Component {
 
   handleEditFolder = (newData, id) => {
     let folderIndex = this.state.folders.findIndex(folder => folder.id === id)
-    // let folderToUpdate = this.state.folders.find(folder => folder.id == id)
     let folderToUpdate = {...newData, id: id}
     console.log(folderToUpdate)
     let currentFolders = this.state.folders
